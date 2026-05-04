@@ -345,6 +345,10 @@ textarea:focus {
     color: #fff;
 }
 
+.instagram-section {
+    background: #fffdf8;
+}
+
 .section-header {
     max-width: 720px;
     margin: 0 0 38px;
@@ -420,11 +424,62 @@ textarea:focus {
 
 .split-grid,
 .location-grid,
-.contact-grid {
+.contact-grid,
+.instagram-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(320px, 0.82fr);
     gap: 48px;
     align-items: center;
+}
+
+.instagram-grid h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    line-height: 1.12;
+    letter-spacing: 0;
+}
+
+.instagram-grid p {
+    margin: 16px 0 0;
+    color: var(--ink-soft);
+    line-height: 1.75;
+}
+
+.instagram-grid .btn {
+    margin-top: 26px;
+}
+
+.instagram-panel {
+    display: grid;
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: linear-gradient(145deg, #ffffff, #f7efe4);
+    box-shadow: var(--shadow);
+}
+
+.instagram-media {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 540px !important;
+    margin: 0 auto !important;
+    border-radius: 8px !important;
+}
+
+.instagram-media a {
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    border-radius: 8px;
+    background:
+        linear-gradient(160deg, rgba(18, 81, 78, 0.9), rgba(200, 155, 60, 0.72)),
+        url("../img/clareamento-site.png") center / cover no-repeat;
+    color: #fff;
+    text-align: center;
+    font-weight: 700;
+    line-height: 1.5;
 }
 
 .feature-list {
@@ -719,7 +774,8 @@ textarea:focus {
     .appointment-inner,
     .split-grid,
     .location-grid,
-    .contact-grid {
+    .contact-grid,
+    .instagram-grid {
         grid-template-columns: 1fr;
     }
 
