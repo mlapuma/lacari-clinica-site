@@ -1,5 +1,5 @@
 window.LACARI_TRACKING_CONFIG = {
-    googleTagManagerId: '',
+    googleTagManagerId: 'GTM-KDSGXGST',
     googleAdsId: '',
     googleAdsConversionLabel: '',
     metaPixelId: ''
