@@ -912,6 +912,30 @@ textarea:focus {
     color: inherit;
 }
 
+.blog-list .card-body {
+    display: flex;
+    min-height: 250px;
+    flex-direction: column;
+}
+
+.blog-list .card-link {
+    margin-top: auto;
+}
+
+.post-category {
+    display: inline-flex;
+    width: fit-content;
+    margin-bottom: 10px;
+    border-radius: 999px;
+    padding: 0.28rem 0.62rem;
+    color: var(--teal-dark);
+    background: var(--mint);
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
 .article-hero {
     padding-bottom: 58px;
 }
