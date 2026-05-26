@@ -1063,6 +1063,13 @@ textarea:focus {
     color: var(--muted);
 }
 
+.inline-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
 @media (max-width: 980px) {
     .header-inner {
         min-height: auto;
