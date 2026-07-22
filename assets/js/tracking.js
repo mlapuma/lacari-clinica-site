@@ -38,7 +38,7 @@ window.LACARI_TRACKING_CONFIG = {
             <div class="container">
                 <div class="landing-card">
                     <h2>Informação revisada pela equipe clínica</h2>
-                    <p>Conteúdo educativo revisado pela Dra. Tamara de Souza La Puma e pela Dra. Taniele Cariri, cirurgiãs-dentistas da LaCari Odontologia.</p>
+                    <p>Conteúdo educativo revisado pela Dra. Tamara de Souza La Puma, cirurgiã-dentista da LaCari Odontologia.</p>
                     <p>As informações não substituem consulta, exame clínico ou diagnóstico individual. Resultados e indicações variam conforme cada paciente.</p>
                     <p><strong>Atualizado em:</strong> 22 de julho de 2026 · <a href="/sobre.html">Conheça a equipe</a> · <a href="/politica-editorial.html">Política editorial</a></p>
                 </div>
