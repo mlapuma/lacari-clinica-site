@@ -40,9 +40,37 @@ window.LACARI_TRACKING_CONFIG = {
                     <h2>Informação revisada pela equipe clínica</h2>
                     <p>Conteúdo educativo revisado pela Dra. Tamara de Souza La Puma, cirurgiã-dentista da LaCari Odontologia.</p>
                     <p>As informações não substituem consulta, exame clínico ou diagnóstico individual. Resultados e indicações variam conforme cada paciente.</p>
-                    <p><strong>Atualizado em:</strong> 22 de julho de 2026 · <a href="/sobre.html">Conheça a equipe</a> · <a href="/politica-editorial.html">Política editorial</a></p>
+                    <p><strong>Atualizado em:</strong> 22 de julho de 2026 · <a href="/sobre.html">Conheça a clínica</a> · <a href="/politica-editorial.html">Política editorial</a></p>
                 </div>
             </div>`;
+        main.appendChild(section);
+    }
+
+    function addLocalAreaNavigation() {
+        if (document.querySelector('[data-local-navigation]')) return;
+        const filename = window.location.pathname.split('/').pop() || '';
+        const isLocalPage = filename.startsWith('dentista-') && filename !== 'dentista-em-itaquera.html' && filename !== 'dentista-infantil-itaquera.html';
+        if (!isLocalPage) return;
+
+        const main = document.querySelector('main');
+        if (!main) return;
+
+        const section = document.createElement('section');
+        section.className = 'section section-soft';
+        section.setAttribute('data-local-navigation', 'true');
+        section.innerHTML = `
+          <div class="container">
+            <div class="content-link-strip">
+              <div>
+                <strong>Atendimento na Avenida Pires do Rio, em Itaquera</strong>
+                <span>A LaCari possui um único endereço no Jardim Norma. Consulte outras regiões atendidas e confirme a rota antes de sair.</span>
+              </div>
+              <div class="inline-actions">
+                <a href="/areas-atendidas.html" class="btn btn-light">Ver bairros atendidos</a>
+                <a href="/dentista-em-itaquera.html" class="btn btn-primary">Conhecer a clínica</a>
+              </div>
+            </div>
+          </div>`;
         main.appendChild(section);
     }
 
@@ -65,6 +93,7 @@ window.LACARI_TRACKING_CONFIG = {
             canonicalUrl.protocol = 'https:';
             canonical.href = canonicalUrl.href;
         }
+        addLocalAreaNavigation();
         addClinicalReviewNotice();
     }
 
