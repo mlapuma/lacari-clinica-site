@@ -24,6 +24,38 @@ window.LACARI_TRACKING_CONFIG = {
         document.head.appendChild(script);
     }
 
+    function applyTechnicalEnhancements() {
+        document.documentElement.classList.add('js');
+
+        document.querySelectorAll('a[target="_blank"]').forEach(link => {
+            const rel = new Set((link.getAttribute('rel') || '').split(/\s+/).filter(Boolean));
+            rel.add('noopener');
+            rel.add('noreferrer');
+            link.setAttribute('rel', Array.from(rel).join(' '));
+        });
+
+        document.querySelectorAll('img').forEach((image, index) => {
+            if (!image.hasAttribute('decoding')) image.setAttribute('decoding', 'async');
+            if (!image.hasAttribute('loading') && index > 0 && !image.closest('.landing-hero, .hero')) {
+                image.setAttribute('loading', 'lazy');
+            }
+        });
+
+        const canonical = document.querySelector('link[rel="canonical"]');
+        if (canonical) {
+            const canonicalUrl = new URL(canonical.href, window.location.origin);
+            canonicalUrl.hostname = 'clinicalacari.com.br';
+            canonicalUrl.protocol = 'https:';
+            canonical.href = canonicalUrl.href;
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', applyTechnicalEnhancements, { once: true });
+    } else {
+        applyTechnicalEnhancements();
+    }
+
     if (hasValue(config.googleTagManagerId)) {
         window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
         loadScript(`https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(config.googleTagManagerId)}`, 'lacari-gtm');
