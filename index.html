@@ -27,7 +27,7 @@
         "priceRange": "$$",
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "Avenida Pires do Rio, 3369 - Jardim Norma",
+            "streetAddress": "Avenida Pires do Rio, 3369, salas 4 e 5 - Jardim Norma",
             "addressLocality": "São Paulo",
             "addressRegion": "SP",
             "postalCode": "08240-230",
@@ -124,12 +124,17 @@
                 <span class="clinic-subtitle">Dentista em Itaquera</span>
             </span>
         </a>
-        <nav class="nav" aria-label="Menu principal">
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav" id="main-nav" aria-label="Menu principal">
             <a href="#tratamentos" class="nav-link">Tratamentos</a>
             <a href="#diferenciais" class="nav-link">Diferenciais</a>
+            <a href="#avaliacoes" class="nav-link">Avaliações</a>
             <a href="#regiao" class="nav-link">Região</a>
             <a href="blog/" class="nav-link">Blog</a>
-            <a href="#instagram" class="nav-link">Instagram</a>
             <a href="#contato" class="nav-link">Contato</a>
             <a href="https://wa.me/5511910435529?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20LaCari%20Odontologia%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener" class="btn btn-primary">Agendar</a>
         </nav>
@@ -148,6 +153,11 @@
         <div class="hero-overlay"></div>
         <div class="container hero-content">
             <span class="eyebrow">Clínica odontológica na Avenida Pires do Rio</span>
+            <a class="hero-rating" href="https://www.google.com/maps/search/?api=1&amp;query=Cl%C3%ADnica%20LaCari%20Odontologia%20Avenida%20Pires%20do%20Rio%203369%20Jardim%20Norma%20S%C3%A3o%20Paulo%20SP" target="_blank" rel="noopener" aria-label="Clínica LaCari: nota 5,0 em 11 avaliações no Google">
+                <span class="rating-stars" aria-hidden="true">★★★★★</span>
+                <strong>5,0 no Google</strong>
+                <span>11 avaliações</span>
+            </a>
             <h1>Dentista em Itaquera para cuidar do seu sorriso com calma, clareza e segurança</h1>
             <p>Atendimento para prevenção, estética, dor de dente e reabilitação oral em um só lugar. A LaCari Odontologia fica perto de quem mora ou trabalha em Itaquera e região da Zona Leste.</p>
             <div class="hero-actions">
@@ -166,7 +176,7 @@
         <div class="container appointment-inner">
             <div>
                 <strong>Quer saber por onde começar?</strong>
-                <span>Envie seus dados e a equipe chama você no WhatsApp.</span>
+                <span>Preencha os dados e continue o atendimento pelo WhatsApp.</span>
             </div>
             <form class="quick-form" data-whatsapp-form data-form-name="agendamento_rapido">
                 <input type="text" name="nome" placeholder="Seu nome" autocomplete="name" required>
@@ -180,8 +190,45 @@
                     <option>Facetas em resina</option>
                     <option>Implante ou prótese</option>
                 </select>
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" class="btn btn-primary">Continuar no WhatsApp</button>
+                <small class="form-note">Seus dados serão usados somente para iniciar este atendimento.</small>
             </form>
+        </div>
+    </section>
+
+    <section class="section trust-showcase" id="avaliacoes">
+        <div class="container trust-showcase-grid">
+            <figure class="trust-showcase-photo">
+                <img
+                    src="assets/img/clinica/dra-tamara-clinica-lacari.webp"
+                    alt="Dra. Tamara de Souza La Puma na Clínica LaCari"
+                    width="1200"
+                    height="1200"
+                    loading="lazy">
+            </figure>
+            <div class="trust-showcase-copy">
+                <span class="eyebrow">Confiança reconhecida</span>
+                <h2>Dra. Tamara e a Clínica LaCari: cuidado próximo e atendimento bem avaliado</h2>
+                <p>A Dra. Tamara de Souza La Puma está à frente da LaCari, em um ambiente preparado para explicar cada etapa do cuidado com clareza e tranquilidade.</p>
+                <a class="google-rating-card" href="https://www.google.com/maps/search/?api=1&amp;query=Cl%C3%ADnica%20LaCari%20Odontologia%20Avenida%20Pires%20do%20Rio%203369%20Jardim%20Norma%20S%C3%A3o%20Paulo%20SP" target="_blank" rel="noopener">
+                    <span class="rating-stars" aria-hidden="true">★★★★★</span>
+                    <span>
+                        <strong>5,0 de avaliação no Google</strong>
+                        <small>11 avaliações públicas</small>
+                    </span>
+                </a>
+                <div class="review-preview-grid">
+                    <blockquote>
+                        <p>“Ótima estrutura e profissionais, recomendo.”</p>
+                        <cite>Paloma Andrade · avaliação no Google</cite>
+                    </blockquote>
+                    <blockquote>
+                        <p>“Ótimo atendimento.”</p>
+                        <cite>Ryan Murilo · avaliação no Google</cite>
+                    </blockquote>
+                </div>
+                <a class="card-link" href="https://www.google.com/maps/search/?api=1&amp;query=Cl%C3%ADnica%20LaCari%20Odontologia%20Avenida%20Pires%20do%20Rio%203369%20Jardim%20Norma%20S%C3%A3o%20Paulo%20SP" target="_blank" rel="noopener">Ver todas as avaliações no Google</a>
+            </div>
         </div>
     </section>
 
@@ -333,10 +380,10 @@
                 <div class="local-meta" aria-label="Informações locais da clínica">
                     <div>
                         <strong>Endereço completo</strong>
-                        <span>Avenida Pires do Rio, 3369 - Jardim Norma - São Paulo/SP - CEP 08240-230</span>
+                        <span>Avenida Pires do Rio, 3369, salas 4 e 5 - Jardim Norma - São Paulo/SP - CEP 08240-230</span>
                     </div>
                     <div>
-                        <strong>Horário informado em cadastro público</strong>
+                        <strong>Horário de atendimento</strong>
                         <span>Segunda a sexta, das 09h às 18h. Confirme disponibilidade pelo WhatsApp.</span>
                     </div>
                 </div>
@@ -425,7 +472,7 @@
                 <h2>Fale com a LaCari Odontologia</h2>
                 <p>Conte o que você precisa e receba orientação para marcar sua avaliação.</p>
                 <ul class="contact-list">
-                    <li><strong>Endereço:</strong> Avenida Pires do Rio, 3369 - Jardim Norma - São Paulo/SP - CEP 08240-230</li>
+                    <li><strong>Endereço:</strong> Avenida Pires do Rio, 3369, salas 4 e 5 - Jardim Norma - São Paulo/SP - CEP 08240-230</li>
                     <li><strong>Horário:</strong> Segunda a sexta, das 09h às 18h. Confirme pelo WhatsApp.</li>
                     <li><strong>WhatsApp:</strong> <a href="https://wa.me/5511910435529" target="_blank" rel="noopener">(11) 91043-5529</a></li>
                     <li><strong>Instagram:</strong> <a href="https://www.instagram.com/clinicalacari/" target="_blank" rel="noopener">@clinicalacari</a></li>
@@ -455,7 +502,8 @@
     <div class="container footer-inner">
         <div>
             <strong>LaCari Odontologia</strong>
-            <span>Avenida Pires do Rio, 3369 - Jardim Norma - São Paulo/SP</span>
+            <span>Avenida Pires do Rio, 3369, salas 4 e 5 - Jardim Norma - São Paulo/SP</span>
+            <span>CNPJ 52.493.782/0001-41</span>
         </div>
         <a href="https://wa.me/5511910435529" target="_blank" rel="noopener">WhatsApp: (11) 91043-5529</a>
     </div>

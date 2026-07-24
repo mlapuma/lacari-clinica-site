@@ -113,6 +113,41 @@ iframe {
     color: var(--ink-soft);
 }
 
+.nav-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--ink);
+    cursor: pointer;
+}
+
+.nav-toggle span {
+    width: 20px;
+    height: 2px;
+    border-radius: 999px;
+    background: currentColor;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-toggle.is-open span:first-child {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle.is-open span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.is-open span:last-child {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
 .nav-link {
     position: relative;
     font-weight: 500;
@@ -297,6 +332,34 @@ iframe {
     color: #f1cc72;
 }
 
+.hero-rating {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0 0 18px;
+    padding: 9px 13px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-size: 0.82rem;
+    backdrop-filter: blur(12px);
+}
+
+.hero-rating strong {
+    font-size: 0.88rem;
+}
+
+.hero-rating > span:last-child {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.rating-stars {
+    color: #f1cc72;
+    letter-spacing: 0.08em;
+}
+
 .hero h1 {
     max-width: 760px;
     margin: 0;
@@ -378,6 +441,12 @@ iframe {
     gap: 10px;
 }
 
+.quick-form .form-note {
+    grid-column: 1 / -1;
+    color: var(--muted);
+    font-size: 0.75rem;
+}
+
 input,
 select,
 textarea {
@@ -411,6 +480,103 @@ textarea:focus {
 
 .section-soft {
     background: linear-gradient(135deg, #eef7ee, #fff8ed);
+}
+
+.trust-showcase {
+    padding-top: 106px;
+    background: var(--surface);
+}
+
+.trust-showcase-grid {
+    display: grid;
+    grid-template-columns: minmax(300px, 0.8fr) minmax(0, 1.2fr);
+    gap: 56px;
+    align-items: center;
+}
+
+.trust-showcase-photo {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: var(--shadow);
+}
+
+.trust-showcase-photo img {
+    width: 100%;
+    height: 560px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: 65% center;
+}
+
+.trust-showcase-copy h2 {
+    max-width: 720px;
+    margin: 0;
+    font-size: clamp(2rem, 3.6vw, 3.4rem);
+    line-height: 1.08;
+}
+
+.trust-showcase-copy > p {
+    max-width: 680px;
+    margin: 20px 0 0;
+    color: var(--ink-soft);
+    line-height: 1.75;
+}
+
+.google-rating-card {
+    max-width: 560px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 26px;
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 12px 30px rgba(33, 52, 49, 0.09);
+}
+
+.google-rating-card .rating-stars {
+    font-size: 1.18rem;
+}
+
+.google-rating-card > span:last-child {
+    display: grid;
+    gap: 2px;
+}
+
+.google-rating-card small {
+    color: var(--muted);
+}
+
+.review-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin: 18px 0;
+}
+
+.review-preview-grid blockquote {
+    margin: 0;
+    padding: 18px;
+    border-left: 3px solid var(--gold);
+    border-radius: 0 12px 12px 0;
+    background: #f8f3e9;
+}
+
+.review-preview-grid p {
+    margin: 0;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+.review-preview-grid cite {
+    display: block;
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-style: normal;
 }
 
 .section-contact {
@@ -1186,6 +1352,7 @@ textarea:focus {
 
     .appointment-inner,
     .split-grid,
+    .trust-showcase-grid,
     .location-grid,
     .contact-grid,
     .instagram-grid,
@@ -1206,6 +1373,14 @@ textarea:focus {
     .quick-form .btn {
         grid-column: 1 / -1;
     }
+
+    .trust-showcase-grid {
+        gap: 34px;
+    }
+
+    .trust-showcase-photo {
+        max-width: 620px;
+    }
 }
 
 @media (max-width: 700px) {
@@ -1215,6 +1390,37 @@ textarea:focus {
 
     .hero {
         min-height: auto;
+    }
+
+    .header-inner {
+        min-height: 66px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 12px;
+        padding: 9px 0;
+    }
+
+    .branding {
+        min-width: 0;
+        gap: 9px;
+    }
+
+    .logo {
+        width: 46px;
+        height: 46px;
+    }
+
+    .clinic-title {
+        font-size: 0.9rem;
+    }
+
+    .clinic-subtitle {
+        font-size: 0.7rem;
+    }
+
+    .nav-toggle {
+        display: inline-flex;
     }
 
     .lacari-real-gallery {
@@ -1236,7 +1442,7 @@ textarea:focus {
     }
 
     .hero-content {
-        padding: 54px 0 98px;
+        padding: 48px 0 98px;
     }
 
     .hero h1 {
@@ -1252,6 +1458,15 @@ textarea:focus {
     }
 
     .nav {
+        grid-column: 1 / -1;
+        display: none;
+        width: 100%;
+        margin-top: 2px;
+        padding-top: 8px;
+        border-top: 1px solid var(--line);
+    }
+
+    .nav.is-open {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 8px;
@@ -1286,6 +1501,29 @@ textarea:focus {
 
     .hero-actions .btn {
         width: 100%;
+    }
+
+    .hero-rating {
+        flex-wrap: wrap;
+        gap: 6px 8px;
+        border-radius: 14px;
+    }
+
+    .trust-showcase {
+        padding-top: 90px;
+    }
+
+    .trust-showcase-photo img {
+        height: 430px;
+    }
+
+    .review-preview-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .google-rating-card {
+        align-items: flex-start;
+        flex-direction: column;
     }
 
     .trust-row,
