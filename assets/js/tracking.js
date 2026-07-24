@@ -49,7 +49,7 @@ window.LACARI_TRACKING_CONFIG = {
     function addLocalAreaNavigation() {
         if (document.querySelector('[data-local-navigation]')) return;
         const filename = window.location.pathname.split('/').pop() || '';
-        const isLocalPage = filename.startsWith('dentista-') && filename !== 'dentista-em-itaquera.html' && filename !== 'dentista-infantil-itaquera.html';
+        const isLocalPage = filename === 'dentista-avenida-pires-do-rio.html';
         if (!isLocalPage) return;
 
         const main = document.querySelector('main');
@@ -67,7 +67,7 @@ window.LACARI_TRACKING_CONFIG = {
               </div>
               <div class="inline-actions">
                 <a href="/areas-atendidas.html" class="btn btn-light">Ver bairros atendidos</a>
-                <a href="/dentista-em-itaquera.html" class="btn btn-primary">Conhecer a clínica</a>
+                <a href="/" class="btn btn-primary">Conhecer a clínica</a>
               </div>
             </div>
           </div>`;
