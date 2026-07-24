@@ -196,16 +196,82 @@ iframe {
 }
 
 .hero-bg {
-    background:
-        linear-gradient(90deg, rgba(10, 38, 36, 0.96) 0%, rgba(10, 38, 36, 0.78) 42%, rgba(10, 38, 36, 0.18) 100%),
-        url("../img/tratamentos-geral-site.png") center right / cover no-repeat;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 38%;
     transform: scale(1.02);
 }
 
 .hero-overlay {
     background:
+        linear-gradient(90deg, rgba(10, 38, 36, 0.96) 0%, rgba(10, 38, 36, 0.78) 42%, rgba(10, 38, 36, 0.18) 100%),
         linear-gradient(180deg, rgba(23, 51, 50, 0.18), rgba(23, 51, 50, 0.4)),
         radial-gradient(circle at 18% 76%, rgba(200, 155, 60, 0.32), transparent 34%);
+}
+
+.lacari-real-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 32px;
+}
+
+.lacari-gallery-item {
+    min-height: 260px;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 16px 40px rgba(46, 35, 27, 0.1);
+}
+
+.lacari-gallery-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 260px;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+}
+
+.lacari-gallery-item:hover img {
+    transform: scale(1.025);
+}
+
+.lacari-gallery-featured {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.lacari-gallery-featured img {
+    min-height: 538px;
+}
+
+.lacari-gallery-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 28px;
+    padding: 24px 28px;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 12px 32px rgba(46, 35, 27, 0.08);
+}
+
+.lacari-gallery-cta div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.lacari-gallery-cta strong {
+    font-size: 1.1rem;
+}
+
+.lacari-gallery-cta span {
+    color: #655d57;
 }
 
 .hero-content {
@@ -1095,9 +1161,27 @@ textarea:focus {
     }
 
     .hero-bg {
+        object-position: center;
+    }
+
+    .hero-overlay {
         background:
             linear-gradient(90deg, rgba(10, 38, 36, 0.96), rgba(10, 38, 36, 0.72)),
-            url("../img/tratamentos-geral-site.png") center / cover no-repeat;
+            linear-gradient(180deg, rgba(23, 51, 50, 0.18), rgba(23, 51, 50, 0.4)),
+            radial-gradient(circle at 18% 76%, rgba(200, 155, 60, 0.32), transparent 34%);
+    }
+
+    .lacari-real-gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .lacari-gallery-featured {
+        grid-column: span 2;
+    }
+
+    .lacari-gallery-cta {
+        align-items: flex-start;
+        flex-direction: column;
     }
 
     .appointment-inner,
@@ -1131,6 +1215,24 @@ textarea:focus {
 
     .hero {
         min-height: auto;
+    }
+
+    .lacari-real-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .lacari-gallery-featured {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+
+    .lacari-gallery-featured img,
+    .lacari-gallery-item img {
+        min-height: 300px;
+    }
+
+    .lacari-gallery-cta {
+        padding: 22px;
     }
 
     .hero-content {
