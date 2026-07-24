@@ -53,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
             window.dispatchEvent(new CustomEvent('lacari:form_submit', {
                 detail: {
                     formName: form.getAttribute('data-form-name') || 'whatsapp_form',
-                    treatment: tratamento,
                     sourcePath: window.location.pathname
                 }
             }));

@@ -447,6 +447,14 @@ iframe {
     font-size: 0.75rem;
 }
 
+.form-note a,
+.contact-form small a {
+    color: var(--teal-dark);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
 input,
 select,
 textarea {
@@ -940,6 +948,23 @@ textarea:focus {
 }
 
 .footer-inner a {
+    font-weight: 700;
+}
+
+.footer-links,
+.footer-compliance {
+    display: grid;
+    gap: 5px;
+}
+
+.footer-compliance {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.78rem;
+}
+
+.footer-compliance a,
+.footer-links a {
+    color: #fff;
     font-weight: 700;
 }
 

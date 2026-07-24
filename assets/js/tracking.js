@@ -74,6 +74,65 @@ window.LACARI_TRACKING_CONFIG = {
         main.appendChild(section);
     }
 
+    function addFooterCompliance() {
+        const footer = document.querySelector('.footer');
+        const footerContainer = footer?.querySelector('.container');
+        if (!footerContainer) return;
+
+        footer.querySelectorAll('span').forEach(span => {
+            if (span.textContent.trim() === 'Avenida Pires do Rio, 3369 - Jardim Norma - São Paulo/SP') {
+                span.textContent = 'Avenida Pires do Rio, 3369, salas 4 e 5 - Jardim Norma - São Paulo/SP';
+            }
+        });
+
+        const items = [];
+        if (!footer.textContent.includes('52.493.782/0001-41')) {
+            items.push('<span>CNPJ 52.493.782/0001-41</span>');
+        }
+        if (!footer.querySelector('a[href*="politica-de-privacidade"]')) {
+            items.push('<a href="/politica-de-privacidade.html">Política de Privacidade</a>');
+        }
+        if (!items.length) return;
+
+        const compliance = document.createElement('div');
+        compliance.className = 'footer-compliance';
+        compliance.setAttribute('data-footer-compliance', 'true');
+        compliance.innerHTML = items.join('');
+        footerContainer.appendChild(compliance);
+    }
+
+    function addResponsiveNavigation() {
+        const headerInner = document.querySelector('.header-inner');
+        const nav = headerInner?.querySelector('.nav');
+        if (!headerInner || !nav || headerInner.querySelector('.nav-toggle')) return;
+
+        if (!nav.id) nav.id = 'internal-nav';
+        const toggle = document.createElement('button');
+        toggle.className = 'nav-toggle';
+        toggle.type = 'button';
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-controls', nav.id);
+        toggle.setAttribute('aria-label', 'Abrir menu');
+        toggle.innerHTML = '<span></span><span></span><span></span>';
+        headerInner.insertBefore(toggle, nav);
+
+        toggle.addEventListener('click', () => {
+            const isOpen = nav.classList.toggle('is-open');
+            toggle.classList.toggle('is-open', isOpen);
+            toggle.setAttribute('aria-expanded', String(isOpen));
+            toggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+        });
+
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('is-open');
+                toggle.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.setAttribute('aria-label', 'Abrir menu');
+            });
+        });
+    }
+
     function applyTechnicalEnhancements() {
         document.documentElement.classList.add('js');
         document.querySelectorAll('a[target="_blank"]').forEach(link => {
@@ -95,6 +154,8 @@ window.LACARI_TRACKING_CONFIG = {
         }
         addLocalAreaNavigation();
         addClinicalReviewNotice();
+        addFooterCompliance();
+        addResponsiveNavigation();
     }
 
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applyTechnicalEnhancements, { once: true });
