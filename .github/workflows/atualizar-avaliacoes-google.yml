@@ -1,0 +1,67 @@
+name: Atualizar avaliações do Google
+
+on:
+  schedule:
+    - cron: "15 8 * * *"
+      timezone: "America/Sao_Paulo"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: atualizar-avaliacoes-google
+  cancel-in-progress: false
+
+jobs:
+  atualizar:
+    name: Verificar e publicar avaliação
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o site
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Consultar Google e atualizar o site
+        env:
+          GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+        run: node scripts/update-google-rating.mjs
+
+      - name: Verificar se houve alteração
+        id: changes
+        shell: bash
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Nenhuma alteração encontrada."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git diff -- index.html
+          fi
+
+      - name: Registrar e enviar a atualização
+        if: steps.changes.outputs.changed == 'true'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Atualizar avaliações do Google automaticamente"
+          git push origin HEAD:main
+
+      - name: Solicitar nova publicação do GitHub Pages
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "repos/${GITHUB_REPOSITORY}/pages/builds"
