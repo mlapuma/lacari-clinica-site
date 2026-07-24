@@ -38,22 +38,24 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
 
             const data = new FormData(form);
-            const nome = data.get('nome') || 'Paciente';
-            const whatsapp = data.get('whatsapp') || '';
+            const nome = String(data.get('nome') || '').trim();
             const tratamento = data.get('tratamento') || 'Avaliação';
+            const periodo = data.get('periodo') || '';
             const mensagem = data.get('mensagem') || '';
             const texto = [
                 'Olá, vim pelo site da LaCari Odontologia.',
-                `Meu nome é ${nome}.`,
-                whatsapp ? `Meu WhatsApp é ${whatsapp}.` : '',
-                `Tenho interesse em: ${tratamento}.`,
+                nome ? `Meu nome é ${nome}.` : '',
+                `Preciso de ajuda com: ${tratamento}.`,
+                periodo ? `O melhor período para mim é: ${periodo}.` : '',
                 mensagem ? `Mensagem: ${mensagem}` : ''
             ].filter(Boolean).join(' ');
 
             window.dispatchEvent(new CustomEvent('lacari:form_submit', {
                 detail: {
                     formName: form.getAttribute('data-form-name') || 'whatsapp_form',
-                    sourcePath: window.location.pathname
+                    sourcePath: window.location.pathname,
+                    leadIntent: tratamento,
+                    preferredPeriod: periodo
                 }
             }));
 

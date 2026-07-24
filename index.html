@@ -176,23 +176,63 @@
         <div class="container appointment-inner">
             <div>
                 <strong>Quer saber por onde começar?</strong>
-                <span>Preencha os dados e continue o atendimento pelo WhatsApp.</span>
+                <span>Escolha sua necessidade e continue diretamente pelo WhatsApp.</span>
             </div>
             <form class="quick-form" data-whatsapp-form data-form-name="agendamento_rapido">
-                <input type="text" name="nome" placeholder="Seu nome" autocomplete="name" required>
-                <input type="tel" name="whatsapp" placeholder="WhatsApp" autocomplete="tel" required>
+                <input type="text" name="nome" placeholder="Seu nome (opcional)" autocomplete="name">
                 <select name="tratamento" required>
-                    <option value="">Tratamento</option>
-                    <option>Limpeza e avaliação</option>
-                    <option>Clareamento dental</option>
-                    <option>Aparelho ortodôntico</option>
-                    <option>Canal ou dor de dente</option>
-                    <option>Facetas em resina</option>
-                    <option>Implante ou prótese</option>
+                    <option value="">Como podemos ajudar?</option>
+                    <option>Estou com dor ou desconforto</option>
+                    <option>Quero melhorar meu sorriso</option>
+                    <option>Perdi ou quebrei um dente</option>
+                    <option>Quero uma avaliação preventiva</option>
+                    <option>Tenho outra dúvida</option>
                 </select>
-                <button type="submit" class="btn btn-primary">Continuar no WhatsApp</button>
-                <small class="form-note">Seus dados serão usados somente para iniciar este atendimento. <a href="politica-de-privacidade.html">Saiba como protegemos seus dados.</a></small>
+                <select name="periodo" required>
+                    <option value="">Melhor período</option>
+                    <option>Manhã</option>
+                    <option>Tarde</option>
+                    <option>Quero apenas tirar uma dúvida</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Conversar com a equipe</button>
+                <small class="form-note">Não é necessário informar seu telefone: a conversa será aberta no seu WhatsApp. A equipe responde durante o horário de atendimento. <a href="politica-de-privacidade.html">Privacidade.</a></small>
             </form>
+        </div>
+    </section>
+
+    <section class="section patient-pathways" id="como-podemos-ajudar">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow">Comece pela sua necessidade</span>
+                <h2>O que você precisa cuidar hoje?</h2>
+                <p>Você não precisa saber o nome do tratamento. Escolha a situação mais próxima do que está sentindo e converse com a equipe.</p>
+            </div>
+            <div class="pathway-grid">
+                <article class="pathway-card pathway-urgent">
+                    <span class="pathway-icon" aria-hidden="true">01</span>
+                    <h3>Estou com dor ou desconforto</h3>
+                    <p>Conte onde dói, há quanto tempo e se existe inchaço ou sensibilidade.</p>
+                    <a class="card-link" data-intent="dor_ou_desconforto" href="https://wa.me/5511910435529?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20LaCari%20e%20estou%20com%20dor%20ou%20desconforto.%20Gostaria%20de%20orienta%C3%A7%C3%A3o%20para%20agendar." target="_blank" rel="noopener">Quero avaliar minha dor</a>
+                </article>
+                <article class="pathway-card">
+                    <span class="pathway-icon" aria-hidden="true">02</span>
+                    <h3>Quero melhorar meu sorriso</h3>
+                    <p>Converse sobre cor, formato, alinhamento ou outro aspecto que incomoda você.</p>
+                    <a class="card-link" data-intent="estetica_do_sorriso" href="https://wa.me/5511910435529?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20LaCari%20e%20quero%20melhorar%20meu%20sorriso.%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener">Quero avaliar meu sorriso</a>
+                </article>
+                <article class="pathway-card">
+                    <span class="pathway-icon" aria-hidden="true">03</span>
+                    <h3>Perdi ou quebrei um dente</h3>
+                    <p>Receba orientação sobre avaliação, restauração e possibilidades de reabilitação.</p>
+                    <a class="card-link" data-intent="dente_perdido_ou_quebrado" href="https://wa.me/5511910435529?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20LaCari%20porque%20perdi%20ou%20quebrei%20um%20dente.%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener">Quero conhecer as opções</a>
+                </article>
+                <article class="pathway-card">
+                    <span class="pathway-icon" aria-hidden="true">04</span>
+                    <h3>Quero uma avaliação preventiva</h3>
+                    <p>Organize limpeza, prevenção e acompanhamento antes que apareça uma urgência.</p>
+                    <a class="card-link" data-intent="avaliacao_preventiva" href="https://wa.me/5511910435529?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20LaCari%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20preventiva." target="_blank" rel="noopener">Quero cuidar da prevenção</a>
+                </article>
+            </div>
         </div>
     </section>
 
@@ -228,6 +268,40 @@
                     </blockquote>
                 </div>
                 <a class="card-link" href="https://www.google.com/maps/search/?api=1&amp;query=Cl%C3%ADnica%20LaCari%20Odontologia%20Avenida%20Pires%20do%20Rio%203369%20Jardim%20Norma%20S%C3%A3o%20Paulo%20SP" target="_blank" rel="noopener">Ver todas as avaliações no Google</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-soft first-visit" id="primeira-consulta">
+        <div class="container">
+            <div class="section-header">
+                <span class="eyebrow">Primeira consulta</span>
+                <h2>Entenda como começa o seu atendimento</h2>
+                <p>A avaliação ajuda a transformar dúvidas e sintomas em prioridades claras, sem promessas de resultado antes do exame clínico.</p>
+            </div>
+            <div class="first-visit-grid">
+                <article>
+                    <span>01</span>
+                    <h3>Conte o que está acontecendo</h3>
+                    <p>A equipe escuta sua queixa, seu objetivo e informações importantes sobre sua saúde bucal.</p>
+                </article>
+                <article>
+                    <span>02</span>
+                    <h3>Faça uma avaliação individual</h3>
+                    <p>A dentista avalia dentes e gengiva e orienta sobre exames quando forem necessários.</p>
+                </article>
+                <article>
+                    <span>03</span>
+                    <h3>Conheça prioridades e possibilidades</h3>
+                    <p>Você recebe explicações sobre os próximos passos e pode tirar dúvidas antes de decidir.</p>
+                </article>
+            </div>
+            <div class="response-expectation">
+                <div>
+                    <strong>Depois de enviar sua mensagem</strong>
+                    <span>A equipe responde durante o horário de atendimento para consultar disponibilidade e combinar o próximo passo.</span>
+                </div>
+                <a href="https://wa.me/5511910435529?text=Ol%C3%A1%2C%20li%20como%20funciona%20a%20primeira%20consulta%20e%20quero%20verificar%20a%20disponibilidade." data-intent="primeira_consulta" target="_blank" rel="noopener" class="btn btn-primary">Consultar disponibilidade</a>
             </div>
         </div>
     </section>
@@ -493,19 +567,24 @@
             </div>
             <form class="contact-form" data-whatsapp-form data-form-name="mensagem_contato">
                 <h3>Mensagem rápida</h3>
-                <input type="text" name="nome" placeholder="Nome completo" autocomplete="name" required>
-                <input type="tel" name="whatsapp" placeholder="WhatsApp" autocomplete="tel" required>
+                <input type="text" name="nome" placeholder="Seu nome (opcional)" autocomplete="name">
                 <select name="tratamento" required>
                     <option value="">Como podemos ajudar?</option>
-                    <option>Quero uma avaliação</option>
-                    <option>Estou com dor de dente</option>
+                    <option>Estou com dor ou desconforto</option>
                     <option>Quero melhorar meu sorriso</option>
-                    <option>Preciso de implante ou prótese</option>
+                    <option>Perdi ou quebrei um dente</option>
+                    <option>Quero uma avaliação preventiva</option>
                     <option>Tenho outra dúvida</option>
                 </select>
+                <select name="periodo" required>
+                    <option value="">Qual é o melhor período?</option>
+                    <option>Manhã</option>
+                    <option>Tarde</option>
+                    <option>Quero apenas tirar uma dúvida</option>
+                </select>
                 <textarea name="mensagem" rows="4" placeholder="Escreva sua dúvida, se quiser"></textarea>
-                <button type="submit" class="btn btn-primary btn-block">Chamar no WhatsApp</button>
-                <small>O envio abre uma conversa no WhatsApp da clínica. Consulte a <a href="politica-de-privacidade.html">Política de Privacidade</a>.</small>
+                <button type="submit" class="btn btn-primary btn-block">Conversar com a equipe</button>
+                <small>Não é necessário informar seu telefone. O envio abre uma conversa no seu WhatsApp e a equipe responde durante o horário de atendimento. Consulte a <a href="politica-de-privacidade.html">Política de Privacidade</a>.</small>
             </form>
         </div>
     </section>

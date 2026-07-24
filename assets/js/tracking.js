@@ -198,9 +198,24 @@ window.LACARI_TRACKING_CONFIG = {
     };
 
     document.addEventListener('click', event => {
-        const link = event.target.closest('a[href*="wa.me"], a[href*="api.whatsapp.com"]');
+        const link = event.target.closest('a[href]');
         if (!link) return;
-        window.lacariTrack('whatsapp_click', { link_url: link.href, link_text: link.textContent.trim(), source_section: link.closest('section')?.id || 'global' });
+
+        const sourceSection = link.closest('section')?.id || 'global';
+        const common = {
+            link_url: link.href,
+            link_text: link.textContent.trim(),
+            source_section: sourceSection,
+            lead_intent: link.dataset.intent || ''
+        };
+
+        if (link.matches('a[href*="wa.me"], a[href*="api.whatsapp.com"]')) {
+            window.lacariTrack('whatsapp_click', common);
+        } else if (link.protocol === 'tel:') {
+            window.lacariTrack('phone_click', common);
+        } else if (link.hostname.includes('google.com') && /maps|dir/.test(link.href)) {
+            window.lacariTrack('route_click', common);
+        }
     });
     window.addEventListener('lacari:form_submit', event => window.lacariTrack('form_submit', event.detail || {}));
 })();
