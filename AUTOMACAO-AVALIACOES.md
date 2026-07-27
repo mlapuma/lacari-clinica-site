@@ -5,12 +5,15 @@ da Clínica LaCari pela Google Places API (New).
 
 Horário da consulta: **8h15**, no fuso `America/Sao_Paulo`.
 
-Quando a nota ou a quantidade de avaliações muda, a rotina:
+Quando a nota, a quantidade ou os comentários públicos retornados pelo Google
+mudam, a rotina:
 
 1. atualiza os números no `index.html`;
-2. cria um commit automático;
-3. envia o commit para a branch `main`;
-4. solicita uma nova publicação do GitHub Pages.
+2. renova até três avaliações selecionadas pelo Google por relevância, preservando
+   autoria, foto, data relativa e link para a avaliação original;
+3. cria um commit automático;
+4. envia o commit para a branch `main`;
+5. solicita uma nova publicação do GitHub Pages.
 
 Quando nada muda, nenhum commit ou publicação é criado.
 
@@ -25,7 +28,9 @@ Quando nada muda, nenhum commit ou publicação é criado.
    `Run workflow` uma vez para validar.
 
 Não coloque a chave diretamente em arquivos do repositório. A consulta dos campos
-`rating` e `userRatingCount` exige faturamento habilitado no Google Maps Platform.
+`rating`, `userRatingCount` e `reviews` exige faturamento habilitado no Google
+Maps Platform. As avaliações são exibidas com as atribuições e os links fornecidos
+pela API, conforme as políticas da Google Maps Platform.
 
 ## Execução manual local
 
