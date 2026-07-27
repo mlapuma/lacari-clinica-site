@@ -714,6 +714,11 @@ textarea:focus {
     box-shadow: 0 8px 22px rgba(33, 52, 49, 0.06);
 }
 
+.review-preview-grid blockquote:last-child:nth-child(odd) {
+    min-height: 150px;
+    grid-column: 1 / -1;
+}
+
 .review-stars {
     color: #f4b400;
     font-size: 0.9rem;
@@ -1823,6 +1828,10 @@ textarea:focus {
 
     .review-preview-grid {
         grid-template-columns: 1fr;
+    }
+
+    .review-preview-grid blockquote:last-child:nth-child(odd) {
+        grid-column: auto;
     }
 
     .google-rating-card {
