@@ -153,12 +153,22 @@ ${cards.join("\n")}
                 <!-- google-reviews:end -->`;
 }
 
-function updateIndex(source, rating, reviewCount, reviews = [], googleMapsUri = "") {
+function updateIndex(
+  source,
+  rating,
+  reviewCount,
+  reviews = [],
+  googleMapsUri = "",
+  placeId = ""
+) {
   const ratingPtBr = rating.toFixed(1).replace(".", ",");
   let updated = source;
   const fallbackMapsUrl =
     "https://www.google.com/maps/search/?api=1&query=Cl%C3%ADnica%20LaCari%20Odontologia%20Avenida%20Pires%20do%20Rio%203369%20Jardim%20Norma%20S%C3%A3o%20Paulo%20SP";
   const placeUrl = safeGoogleUrl(googleMapsUri, fallbackMapsUrl);
+  const writeReviewUrl = placeId
+    ? `https://search.google.com/local/writereview?placeid=${encodeURIComponent(placeId)}`
+    : placeUrl;
 
   updated = replaceExactlyOnce(
     updated,
@@ -201,11 +211,19 @@ function updateIndex(source, rating, reviewCount, reviews = [], googleMapsUri = 
     );
   }
 
+  updated = updated.replace(
+    /(<a\b[^>]*\bdata-google-profile-url\b[^>]*\bhref=")[^"]+(")/g,
+    `$1${escapeHtml(placeUrl)}$2`
+  );
+  updated = updated.replace(
+    /(<a\b[^>]*\bdata-google-write-review-url\b[^>]*\bhref=")[^"]+(")/g,
+    `$1${escapeHtml(writeReviewUrl)}$2`
+  );
   updated = replaceExactlyOnce(
     updated,
-    /(<a class="btn btn-light reviews-cta" data-google-reviews-url href=")[^"]+(")/g,
-    `$1${escapeHtml(placeUrl)}$2`,
-    "link para todas as avaliações"
+    /("hasMap": ")[^"]+(")/g,
+    `$1${placeUrl}$2`,
+    "link do perfil no dado estruturado"
   );
 
   return updated;
@@ -238,7 +256,8 @@ const updatedIndex = updateIndex(
   rating,
   reviewCount,
   place.reviews || [],
-  place.googleMapsUri
+  place.googleMapsUri,
+  place.id
 );
 
 console.log(

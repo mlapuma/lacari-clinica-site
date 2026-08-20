@@ -1,0 +1,35 @@
+name: Validar SEO local
+
+on:
+  pull_request:
+    paths:
+      - "**/*.html"
+      - "**/*.md"
+      - "scripts/normalize-local-seo.mjs"
+  push:
+    branches:
+      - main
+    paths:
+      - "**/*.html"
+      - "**/*.md"
+      - "scripts/normalize-local-seo.mjs"
+
+permissions:
+  contents: read
+
+jobs:
+  validar:
+    name: Conferir endereco e horario
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o site
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validar informacoes locais
+        run: node scripts/normalize-local-seo.mjs --check
