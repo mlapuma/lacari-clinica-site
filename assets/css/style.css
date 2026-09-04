@@ -1000,7 +1000,7 @@ textarea:focus {
     border-radius: 8px;
     background:
         linear-gradient(160deg, rgba(18, 81, 78, 0.9), rgba(200, 155, 60, 0.72)),
-        url("../img/clareamento-site.png") center / cover no-repeat;
+        url("../img/clareamento-site.webp") center / cover no-repeat;
     color: #fff;
     text-align: center;
     font-weight: 700;

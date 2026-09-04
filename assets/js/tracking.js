@@ -13,6 +13,25 @@ window.LACARI_TRACKING_CONFIG = {
     function gtag() { window.dataLayer.push(arguments); }
     window.gtag = window.gtag || gtag;
 
+    const campaignKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid'];
+
+    function getCampaignAttribution() {
+        const current = Object.fromEntries(
+            campaignKeys
+                .map(key => [key, new URLSearchParams(window.location.search).get(key)])
+                .filter(([, value]) => value)
+        );
+
+        try {
+            const stored = JSON.parse(sessionStorage.getItem('lacari_campaign') || '{}');
+            const attribution = Object.keys(current).length ? current : stored;
+            if (Object.keys(current).length) sessionStorage.setItem('lacari_campaign', JSON.stringify(current));
+            return attribution;
+        } catch (_error) {
+            return current;
+        }
+    }
+
     function loadScript(src, id) {
         if (id && document.getElementById(id)) return;
         const script = document.createElement('script');
@@ -31,6 +50,21 @@ window.LACARI_TRACKING_CONFIG = {
         const main = document.querySelector('main');
         if (!main) return;
 
+        const intentOptions = [
+            { pattern: /aparelho|ortodont/, intent: 'avaliacao_ortodontica', label: 'Quero avaliar meu alinhamento' },
+            { pattern: /implante|protese|coroa/, intent: 'reabilitacao_oral', label: 'Quero recuperar um dente' },
+            { pattern: /clareamento|faceta|lente/, intent: 'estetica_do_sorriso', label: 'Quero melhorar meu sorriso' },
+            { pattern: /siso/, intent: 'avaliacao_de_siso', label: 'Quero avaliar meu siso' },
+            { pattern: /infantil|crianca/, intent: 'odontopediatria', label: 'Quero agendar para uma criança' },
+            { pattern: /canal|dor-de-dente|dente-quebrado/, intent: 'dor_ou_desconforto', label: 'Quero avaliar minha dor' },
+            { pattern: /limpeza|profilaxia|gengiva|mau-halito/, intent: 'prevencao', label: 'Quero cuidar da prevenção' }
+        ];
+        const selectedIntent = intentOptions.find(option => option.pattern.test(path)) || {
+            intent: 'avaliacao',
+            label: 'Quero agendar uma avaliação'
+        };
+        const whatsappText = encodeURIComponent(`Olá, vim pelo site da LaCari e ${selectedIntent.label.toLowerCase()}.`);
+
         const section = document.createElement('section');
         section.className = 'section section-soft';
         section.setAttribute('data-clinical-review', 'true');
@@ -41,6 +75,10 @@ window.LACARI_TRACKING_CONFIG = {
                     <p>Conteúdo educativo revisado pela Dra. Tamara de Souza La Puma, cirurgiã-dentista da LaCari Odontologia.</p>
                     <p>As informações não substituem consulta, exame clínico ou diagnóstico individual. Resultados e indicações variam conforme cada paciente.</p>
                     <p><strong>Atualizado em:</strong> 22 de julho de 2026 · <a href="/sobre.html">Conheça a clínica</a> · <a href="/politica-editorial.html">Política editorial</a></p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" data-intent="${selectedIntent.intent}" href="https://wa.me/5511910435529?text=${whatsappText}" target="_blank" rel="noopener noreferrer">${selectedIntent.label}</a>
+                        <a class="btn btn-light" href="/tratamentos.html">Ver tratamentos</a>
+                    </div>
                 </div>
             </div>`;
         main.appendChild(section);
@@ -183,16 +221,33 @@ window.LACARI_TRACKING_CONFIG = {
     }
 
     window.lacariTrack = function (eventName, params = {}) {
-        const payload = { event: eventName, page_path: window.location.pathname, page_title: document.title, ...params };
+        const payload = {
+            event: eventName,
+            page_path: window.location.pathname,
+            page_title: document.title,
+            ...getCampaignAttribution(),
+            ...params
+        };
         window.dataLayer.push(payload);
+
+        const isLeadEvent = eventName === 'whatsapp_click' || eventName === 'form_submit';
+        if (isLeadEvent) {
+            window.dataLayer.push({
+                ...payload,
+                event: 'generate_lead',
+                lead_event_name: eventName,
+                method: 'WhatsApp'
+            });
+        }
+
         if (typeof window.gtag === 'function') {
             window.gtag('event', eventName, payload);
-            if ((eventName === 'whatsapp_click' || eventName === 'form_submit') && hasValue(config.googleAdsId) && hasValue(config.googleAdsConversionLabel)) {
+            if (isLeadEvent && hasValue(config.googleAdsId) && hasValue(config.googleAdsConversionLabel)) {
                 window.gtag('event', 'conversion', { send_to: `${config.googleAdsId}/${config.googleAdsConversionLabel}`, event_category: 'lead', event_label: eventName });
             }
         }
         if (typeof window.fbq === 'function') {
-            if (eventName === 'whatsapp_click' || eventName === 'form_submit') window.fbq('track', 'Lead', payload);
+            if (isLeadEvent) window.fbq('track', 'Lead', payload);
             else window.fbq('trackCustom', eventName, payload);
         }
     };
