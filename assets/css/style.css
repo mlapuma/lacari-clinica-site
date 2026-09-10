@@ -1412,6 +1412,10 @@ textarea:focus {
     margin-top: 0;
 }
 
+.local-reference-note {
+    margin-top: 24px;
+}
+
 .faq-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
