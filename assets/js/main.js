@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             event.preventDefault();
             const top = target.getBoundingClientRect().top + window.scrollY - 82;
-            window.scrollTo({ top, behavior: 'smooth' });
+            window.scrollTo({ top, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
         });
     });
 
@@ -54,8 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 detail: {
                     formName: form.getAttribute('data-form-name') || 'whatsapp_form',
                     sourcePath: window.location.pathname,
-                    leadIntent: tratamento,
-                    preferredPeriod: periodo
+                    interaction_type: 'whatsapp_handoff'
                 }
             }));
 

@@ -230,25 +230,10 @@ window.LACARI_TRACKING_CONFIG = {
         };
         window.dataLayer.push(payload);
 
-        const isLeadEvent = eventName === 'whatsapp_click' || eventName === 'form_submit';
-        if (isLeadEvent) {
-            window.dataLayer.push({
-                ...payload,
-                event: 'generate_lead',
-                lead_event_name: eventName,
-                method: 'WhatsApp'
-            });
-        }
-
-        if (typeof window.gtag === 'function') {
-            window.gtag('event', eventName, payload);
-            if (isLeadEvent && hasValue(config.googleAdsId) && hasValue(config.googleAdsConversionLabel)) {
-                window.gtag('event', 'conversion', { send_to: `${config.googleAdsId}/${config.googleAdsConversionLabel}`, event_category: 'lead', event_label: eventName });
-            }
-        }
+        // These events measure an attempted contact, not a confirmed conversation or booking.
+        // GTM consumes the dataLayer event once; do not also send the same event through gtag.
         if (typeof window.fbq === 'function') {
-            if (isLeadEvent) window.fbq('track', 'Lead', payload);
-            else window.fbq('trackCustom', eventName, payload);
+            window.fbq('trackCustom', eventName, payload);
         }
     };
 
@@ -258,10 +243,10 @@ window.LACARI_TRACKING_CONFIG = {
 
         const sourceSection = link.closest('section')?.id || 'global';
         const common = {
-            link_url: link.href,
+            link_url: `${link.origin}${link.pathname}`,
             link_text: link.textContent.trim(),
             source_section: sourceSection,
-            lead_intent: link.dataset.intent || ''
+            interaction_type: 'outbound_click'
         };
 
         if (link.matches('a[href*="wa.me"], a[href*="api.whatsapp.com"]')) {

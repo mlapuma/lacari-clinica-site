@@ -2062,3 +2062,20 @@ textarea:focus {
         font-size: 0.84rem;
     }
 }
+
+/* Local information and team introduction, without changing the clinic identity. */
+.trust-row a { color: inherit; text-underline-offset: 4px; }
+.team-intro { padding: 28px 0; background: var(--surface); }
+.team-intro-inner { display: flex; align-items: center; gap: 24px; }
+.team-intro img { width: 104px; height: 104px; flex: 0 0 104px; object-fit: cover; border-radius: 50%; }
+.team-intro h2 { margin: 0 0 8px; font-size: 1.25rem; }
+.team-intro p { margin: 0 0 10px; max-width: 760px; color: var(--ink-soft); line-height: 1.65; }
+.skip-link { position: fixed; top: -100px; left: 16px; z-index: 1000; padding: 12px 18px; background: var(--teal-dark); color: white; }
+.skip-link:focus { top: 12px; }
+:focus-visible { outline: 3px solid var(--teal); outline-offset: 4px; }
+@media (max-width: 520px) {
+    .team-intro-inner { align-items: flex-start; gap: 16px; }
+    .team-intro img { width: 64px; height: 64px; flex-basis: 64px; }
+    .team-intro h2 { font-size: 1.1rem; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
