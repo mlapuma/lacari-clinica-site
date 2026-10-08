@@ -2079,3 +2079,33 @@ textarea:focus {
     .team-intro h2 { font-size: 1.1rem; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+.breadcrumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 0.875rem;
+}
+
+.breadcrumbs a,
+.related-reading a,
+.appointment-faq a {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+.appointment-faq details {
+    padding: 1rem 0;
+    border-bottom: 1px solid #d5d5d5;
+}
+
+.appointment-faq summary {
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.appointment-faq p { margin-top: 0.75rem; }
+.related-reading { padding-left: 1.25rem; }
+.related-reading li { margin: 0.75rem 0; }

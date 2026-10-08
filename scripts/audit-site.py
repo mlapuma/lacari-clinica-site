@@ -63,6 +63,13 @@ def main() -> None:
         if len(re.findall(r"<h1\b", source, re.IGNORECASE)) != 1:
             errors.append(f"{rel}: expected exactly one h1")
 
+        canonical = re.search(r'rel="canonical"\s+href="([^"]+)"', source)
+        canonical_path = "" if rel.as_posix() == "index.html" else rel.as_posix()
+        if canonical_path.endswith("/index.html"):
+            canonical_path = canonical_path[:-10]
+        if not canonical or canonical.group(1) != "https://clinicalacari.com.br/" + canonical_path:
+            errors.append(f"{rel}: canonical does not match sitemap page")
+
         for block in re.findall(
             r'<script\s+type="application/ld\+json"[^>]*>(.*?)</script>',
             source,
@@ -83,6 +90,16 @@ def main() -> None:
                 errors.append(f"{rel}: missing image {src_match.group(1)}")
             if target and not (re.search(r"\bwidth=", tag) and re.search(r"\bheight=", tag)):
                 errors.append(f"{rel}: image lacks width/height: {src_match.group(1)}")
+
+            srcset = re.search(r'\bsrcset="([^"]+)"', tag)
+            if srcset:
+                if not re.search(r'\bsizes="[^"]+"', tag):
+                    errors.append(f"{rel}: responsive image without sizes")
+                for candidate in srcset.group(1).split(","):
+                    reference = candidate.strip().split()[0]
+                    responsive_target = local_target(page, reference)
+                    if responsive_target and not responsive_target.is_file():
+                        errors.append(f"{rel}: missing responsive image {reference}")
 
         for href in re.findall(r'href="([^"]+)"', source, re.IGNORECASE):
             target = local_target(page, href)
