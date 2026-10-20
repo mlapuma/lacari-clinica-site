@@ -256,7 +256,7 @@ window.LACARI_TRACKING_CONFIG = {
         const sourceSection = section?.id || section?.classList?.[0] || 'global';
         const common = {
             link_url: link.protocol === 'tel:' ? 'tel:' : `${link.origin}${link.pathname}`,
-            link_text: link.textContent.trim().replace(/\s+/g, ' ').slice(0, 120),
+            link_text: link.protocol === 'tel:' ? 'Telefone' : 'Rota',
             source_section: sourceSection,
             interaction_type: 'outbound_click'
         };
