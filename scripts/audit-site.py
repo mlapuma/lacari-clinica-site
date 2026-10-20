@@ -150,6 +150,17 @@ def main() -> None:
             if target and not target.exists():
                 errors.append(f"{rel}: broken internal link {href}")
 
+    # Ensure contact conversion instrumentation stays wired during refactors.
+    tracking = (ROOT / "assets/js/tracking.js").read_text(encoding="utf-8")
+    form_script = (ROOT / "assets/js/main.js").read_text(encoding="utf-8")
+    for event in ("whatsapp_click", "phone_click", "form_submit"):
+        if f"'{event}'" not in tracking:
+            errors.append(f"tracking.js: missing {event} conversion event")
+    if "lacari:form_submit" not in tracking or "lacari:form_submit" not in form_script:
+        errors.append("WhatsApp form event is not connected to conversion tracking")
+    if "https://wa.me/" not in form_script:
+        errors.append("WhatsApp form destination is missing")
+
     if errors:
         print("\n".join(errors))
         print(f"\n{len(errors)} problem(s) found.")
