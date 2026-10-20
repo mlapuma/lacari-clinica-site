@@ -252,7 +252,8 @@ window.LACARI_TRACKING_CONFIG = {
         const link = target?.closest('a[href]');
         if (!link) return;
 
-        const sourceSection = link.closest('section')?.id || 'global';
+        const section = link.closest('section');
+        const sourceSection = section?.id || section?.classList?.[0] || 'global';
         const common = {
             link_url: link.protocol === 'tel:' ? 'tel:' : `${link.origin}${link.pathname}`,
             link_text: link.textContent.trim().replace(/\s+/g, ' ').slice(0, 120),
