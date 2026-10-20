@@ -89,4 +89,32 @@ event = click('https://wa.me/5511910435529', 'Agendar', 'avaliacao_ortodontica')
 assert.equal(event.intent, 'avaliacao_ortodontica');
 event = click('https://wa.me/5511910435529', 'Agendar', 'nome:11999999999');
 assert.equal(event.intent, 'unspecified');
+// Valid structured form metadata must survive the privacy filter.
+windowHandlers['lacari:form_submit']({ detail: {
+  formName: 'whatsapp_form',
+  sourcePath: '/tratamentos.html',
+  source_section: 'contato',
+  contact_channel: 'whatsapp',
+  interaction_type: 'whatsapp_handoff',
+  intent: 'avaliacao'
+} });
+event = window.dataLayer.at(-1);
+assert.equal(event.event, 'form_submit');
+assert.equal(event.sourcePath, '/tratamentos.html');
+assert.equal(event.source_section, 'contato');
+assert.equal(event.contact_channel, 'whatsapp');
+assert.equal(event.interaction_type, 'whatsapp_handoff');
+assert.equal(event.intent, 'avaliacao');
+// Free text, markup and overlong values must not pass through form metadata.
+windowHandlers['lacari:form_submit']({ detail: {
+  formName: '<script>alert(1)</script>',
+  source_section: 'x'.repeat(81),
+  contact_channel: 'whatsapp',
+  intent: 'email@pessoal.com'
+} });
+event = window.dataLayer.at(-1);
+assert.equal(event.formName, undefined);
+assert.equal(event.source_section, undefined);
+assert.equal(event.intent, undefined);
+assert.equal(event.contact_channel, 'whatsapp');
 console.log('Conversion tracking functional tests passed.');
