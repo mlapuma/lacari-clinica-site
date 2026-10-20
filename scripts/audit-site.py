@@ -26,7 +26,10 @@ def sitemap_pages() -> list[Path]:
         path = url.path.lstrip("/")
         if not path or path.endswith("/"):
             path += "index.html"
-        pages.append(ROOT / path)
+        target = (ROOT / path).resolve()
+        if not target.is_relative_to(ROOT.resolve()):
+            raise ValueError(f"Sitemap URL escapes site root: {node.text}")
+        pages.append(target)
     return pages
 
 
