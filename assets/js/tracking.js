@@ -71,10 +71,10 @@ window.LACARI_TRACKING_CONFIG = {
         section.innerHTML = `
             <div class="container">
                 <div class="landing-card">
-                    <h2>Informação revisada pela equipe clínica</h2>
-                    <p>Conteúdo educativo revisado pela Dra. Tamara de Souza La Puma, cirurgiã-dentista da LaCari Odontologia.</p>
+                    <h2>Orientações de saúde bucal</h2>
+                    <p>Informações educativas da LaCari Odontologia. Consulte a equipe para avaliação individual e esclarecimento de dúvidas.</p>
                     <p>As informações não substituem consulta, exame clínico ou diagnóstico individual. Resultados e indicações variam conforme cada paciente.</p>
-                    <p><strong>Atualizado em:</strong> 22 de julho de 2026 · <a href="/sobre.html">Conheça a clínica</a> · <a href="/politica-editorial.html">Política editorial</a></p>
+                    <p><a href="/sobre.html">Conheça a clínica</a> · <a href="/politica-editorial.html">Política editorial</a></p>
                     <div class="hero-actions">
                         <a class="btn btn-primary" data-intent="${selectedIntent.intent}" href="https://wa.me/5511910435529?text=${whatsappText}" target="_blank" rel="noopener noreferrer">${selectedIntent.label}</a>
                         <a class="btn btn-light" href="/tratamentos.html">Ver tratamentos</a>
@@ -161,13 +161,22 @@ window.LACARI_TRACKING_CONFIG = {
             toggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
         });
 
+        function closeMenu() {
+            nav.classList.remove('is-open');
+            toggle.classList.remove('is-open');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-label', 'Abrir menu');
+        }
+
         nav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                nav.classList.remove('is-open');
-                toggle.classList.remove('is-open');
-                toggle.setAttribute('aria-expanded', 'false');
-                toggle.setAttribute('aria-label', 'Abrir menu');
-            });
+            link.addEventListener('click', closeMenu);
+        });
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && nav.classList.contains('is-open')) {
+                closeMenu();
+                toggle.focus();
+            }
         });
     }
 
@@ -250,12 +259,12 @@ window.LACARI_TRACKING_CONFIG = {
         };
 
         if (link.matches('a[href*="wa.me"], a[href*="api.whatsapp.com"]')) {
-            window.lacariTrack('whatsapp_click', common);
+            window.lacariTrack('whatsapp_click', { ...common, contact_channel: 'whatsapp', contact_status: 'initiated', intent: link.dataset.intent || 'unspecified' });
         } else if (link.protocol === 'tel:') {
             window.lacariTrack('phone_click', common);
         } else if (link.hostname.includes('google.com') && /maps|dir/.test(link.href)) {
             window.lacariTrack('route_click', common);
         }
     });
-    window.addEventListener('lacari:form_submit', event => window.lacariTrack('form_submit', event.detail || {}));
+    window.addEventListener('lacari:form_submit', event => window.lacariTrack('form_submit', { ...(event.detail || {}), contact_status: 'initiated' }));
 })();

@@ -10,12 +10,32 @@ document.addEventListener('DOMContentLoaded', () => {
             navToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
         });
 
+        const closeMainNav = () => {
+            nav.classList.remove('is-open');
+            navToggle.classList.remove('is-open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            navToggle.setAttribute('aria-label', 'Abrir menu');
+        };
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && nav.classList.contains('is-open')) {
+                closeMainNav();
+                navToggle.focus();
+            }
+        });
+
+        // Close the mobile navigation when the visitor clicks outside it.
+        document.addEventListener('click', event => {
+            if (nav.classList.contains('is-open') &&
+                !nav.contains(event.target) &&
+                !navToggle.contains(event.target)) {
+                closeMainNav();
+            }
+        });
+
         nav.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
-                nav.classList.remove('is-open');
-                navToggle.classList.remove('is-open');
-                navToggle.setAttribute('aria-expanded', 'false');
-                navToggle.setAttribute('aria-label', 'Abrir menu');
+                closeMainNav();
             });
         });
     }
@@ -58,7 +78,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }));
 
-            window.open(`https://wa.me/5511910435529?text=${encodeURIComponent(texto)}`, '_blank', 'noopener');
+            // Keep navigation within the user gesture and avoid popup blockers.
+            const url = `https://wa.me/5511910435529?text=${encodeURIComponent(texto)}`;
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.click();
         });
     });
 
