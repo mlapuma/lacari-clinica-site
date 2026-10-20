@@ -18,7 +18,12 @@ def sitemap_pages() -> list[Path]:
     namespace = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
     pages: list[Path] = []
     for node in tree.findall("s:url/s:loc", namespace):
-        path = urlparse(node.text or "").path.lstrip("/")
+        url = urlparse(node.text or "")
+        if url.scheme != "https" or url.netloc != "clinicalacari.com.br":
+            raise ValueError(f"Invalid sitemap URL origin: {node.text}")
+        if url.query or url.fragment:
+            raise ValueError(f"Sitemap URL must not contain query or fragment: {node.text}")
+        path = url.path.lstrip("/")
         if not path or path.endswith("/"):
             path += "index.html"
         pages.append(ROOT / path)
