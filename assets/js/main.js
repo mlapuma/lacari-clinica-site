@@ -74,6 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 detail: {
                     formName: form.getAttribute('data-form-name') || 'whatsapp_form',
                     sourcePath: window.location.pathname,
+                    source_section: form.closest('section')?.id || form.closest('section')?.classList?.[0] || 'global',
+                    contact_channel: 'whatsapp',
                     interaction_type: 'whatsapp_handoff'
                 }
             }));
