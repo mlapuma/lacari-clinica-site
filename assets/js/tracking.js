@@ -277,8 +277,8 @@ window.LACARI_TRACKING_CONFIG = {
         const detail = event.detail || {};
         const allowed = ['formName', 'sourcePath', 'source_section', 'contact_channel', 'interaction_type', 'intent'];
         const safe = Object.fromEntries(allowed
-            .filter(key => typeof detail[key] === 'string')
-            .map(key => [key, detail[key].slice(0, 80)]));
+            .filter(key => typeof detail[key] === 'string' && /^[a-zA-Z0-9_/-]{1,80}$/.test(detail[key]))
+            .map(key => [key, detail[key]]));
         window.lacariTrack('form_submit', { ...safe, contact_status: 'initiated' });
     });
 })();
