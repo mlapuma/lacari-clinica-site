@@ -250,12 +250,12 @@ window.LACARI_TRACKING_CONFIG = {
         };
 
         if (link.matches('a[href*="wa.me"], a[href*="api.whatsapp.com"]')) {
-            window.lacariTrack('whatsapp_click', common);
+            window.lacariTrack('whatsapp_click', { ...common, contact_channel: 'whatsapp', contact_status: 'initiated', intent: link.dataset.intent || 'unspecified' });
         } else if (link.protocol === 'tel:') {
             window.lacariTrack('phone_click', common);
         } else if (link.hostname.includes('google.com') && /maps|dir/.test(link.href)) {
             window.lacariTrack('route_click', common);
         }
     });
-    window.addEventListener('lacari:form_submit', event => window.lacariTrack('form_submit', event.detail || {}));
+    window.addEventListener('lacari:form_submit', event => window.lacariTrack('form_submit', { ...(event.detail || {}), contact_status: 'initiated' }));
 })();
