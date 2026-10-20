@@ -92,6 +92,18 @@ def main() -> None:
             except json.JSONDecodeError as error:
                 errors.append(f"{rel}: invalid JSON-LD ({error})")
 
+        # Guard the largest visual against accidental lazy loading.
+        if rel.as_posix() == "index.html":
+            hero = re.search(r'<img\b(?=[^>]*\bclass="[^"]*\bhero-bg\b)[^>]*>', source, re.IGNORECASE | re.DOTALL)
+            if not hero:
+                errors.append("index.html: hero image not found")
+            else:
+                hero_tag = hero.group(0)
+                if not re.search(r'\bloading="eager"', hero_tag, re.IGNORECASE):
+                    errors.append("index.html: hero image must use loading=eager")
+                if not re.search(r'\bfetchpriority="high"', hero_tag, re.IGNORECASE):
+                    errors.append("index.html: hero image must use fetchpriority=high")
+
         for tag in re.findall(r"<img\b[^>]*>", source, re.IGNORECASE):
             src_match = re.search(r'\bsrc="([^"]+)"', tag, re.IGNORECASE)
             if not src_match:
