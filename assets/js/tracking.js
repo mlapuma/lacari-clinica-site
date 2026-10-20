@@ -71,10 +71,10 @@ window.LACARI_TRACKING_CONFIG = {
         section.innerHTML = `
             <div class="container">
                 <div class="landing-card">
-                    <h2>Informação revisada pela equipe clínica</h2>
-                    <p>Conteúdo educativo revisado pela Dra. Tamara de Souza La Puma, cirurgiã-dentista da LaCari Odontologia.</p>
+                    <h2>Orientações de saúde bucal</h2>
+                    <p>Informações educativas da LaCari Odontologia. Consulte a equipe para avaliação individual e esclarecimento de dúvidas.</p>
                     <p>As informações não substituem consulta, exame clínico ou diagnóstico individual. Resultados e indicações variam conforme cada paciente.</p>
-                    <p><strong>Atualizado em:</strong> 22 de julho de 2026 · <a href="/sobre.html">Conheça a clínica</a> · <a href="/politica-editorial.html">Política editorial</a></p>
+                    <p><a href="/sobre.html">Conheça a clínica</a> · <a href="/politica-editorial.html">Política editorial</a></p>
                     <div class="hero-actions">
                         <a class="btn btn-primary" data-intent="${selectedIntent.intent}" href="https://wa.me/5511910435529?text=${whatsappText}" target="_blank" rel="noopener noreferrer">${selectedIntent.label}</a>
                         <a class="btn btn-light" href="/tratamentos.html">Ver tratamentos</a>
