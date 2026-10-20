@@ -247,7 +247,9 @@ window.LACARI_TRACKING_CONFIG = {
     };
 
     document.addEventListener('click', event => {
-        const link = event.target.closest('a[href]');
+        // Click targets may be text nodes or SVG children; resolve the nearest link safely.
+        const target = event.target instanceof Element ? event.target : event.target?.parentElement;
+        const link = target?.closest('a[href]');
         if (!link) return;
 
         const sourceSection = link.closest('section')?.id || 'global';
