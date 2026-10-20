@@ -261,7 +261,8 @@ window.LACARI_TRACKING_CONFIG = {
             interaction_type: 'outbound_click'
         };
 
-        if (link.matches('a[href*="wa.me"], a[href*="api.whatsapp.com"]')) {
+        const isWhatsApp = ['wa.me', 'api.whatsapp.com'].includes(link.hostname.toLowerCase());
+        if (isWhatsApp) {
             window.lacariTrack('whatsapp_click', { ...common, contact_channel: 'whatsapp', contact_status: 'initiated', intent: link.dataset.intent || 'unspecified' });
         } else if (link.protocol === 'tel:') {
             window.lacariTrack('phone_click', common);
