@@ -40,6 +40,13 @@ def main() -> None:
     errors: list[str] = []
     pages = sitemap_pages()
 
+    # Duplicate entries can waste crawling and hide sitemap maintenance mistakes.
+    seen_pages: set[Path] = set()
+    for page in pages:
+        if page in seen_pages:
+            errors.append(f"Duplicate sitemap page: {page.relative_to(ROOT)}")
+        seen_pages.add(page)
+
     for page in pages:
         if not page.is_file():
             errors.append(f"Missing sitemap page: {page.relative_to(ROOT)}")
