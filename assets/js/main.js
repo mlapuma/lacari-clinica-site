@@ -78,13 +78,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }));
 
-            // Keep navigation within the user gesture and avoid popup blockers.
+            // Open during the submit gesture; fall back to same-tab navigation if blocked.
             const url = `https://wa.me/5511910435529?text=${encodeURIComponent(texto)}`;
-            const link = document.createElement('a');
-            link.href = url;
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-            link.click();
+            const popup = window.open(url, '_blank');
+            if (popup) {
+                popup.opener = null;
+            } else {
+                window.location.assign(url);
+            }
         });
     });
 
