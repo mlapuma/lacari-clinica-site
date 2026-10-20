@@ -61,4 +61,16 @@ event = window.dataLayer.at(-1);
 assert.equal(event.event, 'form_submit');
 assert.equal(event.source_section, 'hero');
 assert.equal(event.contact_status, 'initiated');
+// Regression checks: reject lookalike domains and avoid recording contact numbers.
+const beforeLookalikes = window.dataLayer.length;
+click('https://wa.me.attacker.example/contact');
+click('https://maps.google.com.attacker.example/maps/dir/');
+assert.equal(window.dataLayer.length, beforeLookalikes, 'lookalike hosts must not generate events');
+event = click('https://api.whatsapp.com/send?phone=5511999999999');
+assert.equal(event.event, 'whatsapp_click');
+assert.equal(event.link_url, 'https://api.whatsapp.com/send');
+assert.equal(event.link_url.includes('5511999999999'), false, 'WhatsApp phone must not leak through query');
+event = click('tel:+5511888888888');
+assert.equal(event.link_url, 'tel:', 'telephone number must not be logged');
+assert.equal(event.link_url.includes('88888888'), false);
 console.log('Conversion tracking functional tests passed.');
