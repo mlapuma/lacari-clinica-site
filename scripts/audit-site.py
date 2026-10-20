@@ -50,10 +50,10 @@ def main() -> None:
 
     # Ensure search engines can discover the canonical sitemap from robots.txt.
     robots = (ROOT / "robots.txt").read_text(encoding="utf-8")
-    sitemap_directives = re.findall(r"^Sitemap:\\s*(\\S+)\\s*$", robots, re.IGNORECASE | re.MULTILINE)
+    sitemap_directives = re.findall(r"^Sitemap:\s*(\S+)\s*$", robots, re.IGNORECASE | re.MULTILINE)
     if sitemap_directives != ["https://clinicalacari.com.br/sitemap.xml"]:
         errors.append("robots.txt: expected one canonical HTTPS sitemap directive")
-    if re.search(r"^Disallow:\\s*/\\s*$", robots, re.IGNORECASE | re.MULTILINE):
+    if re.search(r"^Disallow:\s*/\s*$", robots, re.IGNORECASE | re.MULTILINE):
         errors.append("robots.txt: root directory must not be blocked")
 
     # Duplicate entries can waste crawling and hide sitemap maintenance mistakes.
