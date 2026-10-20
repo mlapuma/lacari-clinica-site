@@ -272,5 +272,13 @@ window.LACARI_TRACKING_CONFIG = {
             window.lacariTrack('route_click', common);
         }
     });
-    window.addEventListener('lacari:form_submit', event => window.lacariTrack('form_submit', { ...(event.detail || {}), contact_status: 'initiated' }));
+    window.addEventListener('lacari:form_submit', event => {
+        // Only approved, non-personal metadata may reach analytics.
+        const detail = event.detail || {};
+        const allowed = ['formName', 'sourcePath', 'source_section', 'contact_channel', 'interaction_type', 'intent'];
+        const safe = Object.fromEntries(allowed
+            .filter(key => typeof detail[key] === 'string')
+            .map(key => [key, detail[key].slice(0, 80)]));
+        window.lacariTrack('form_submit', { ...safe, contact_status: 'initiated' });
+    });
 })();
