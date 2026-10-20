@@ -29,11 +29,11 @@ const sessionStorage = {
 vm.runInNewContext(fs.readFileSync('assets/js/tracking.js', 'utf8'), {
   window, document, Element, URL, URLSearchParams, sessionStorage, Date
 }, { filename: 'tracking.js' });
-function click(url, text = 'Agendar') {
+function click(url, text = 'Agendar', intent = '') {
   const parsed = new URL(url);
   const link = {
     origin: parsed.origin, pathname: parsed.pathname, hostname: parsed.hostname,
-    protocol: parsed.protocol, href: parsed.href, textContent: text, dataset: {},
+    protocol: parsed.protocol, href: parsed.href, textContent: text, dataset: { intent },
     closest: selector => selector === 'section' ? { id: 'contato' } : null
   };
   const target = new Element(link);
@@ -47,6 +47,7 @@ assert.equal(event.utm_source, 'teste');
 assert.equal(event.contact_status, 'initiated');
 assert.equal(event.link_url, 'https://wa.me');
 assert.equal(event.link_text, 'WhatsApp');
+assert.equal(event.intent, 'unspecified');
 assert.equal(event.link_url.includes('5511910435529'), false);
 const count = window.dataLayer.length;
 click('https://example.org/?redirect=https://wa.me/5511910435529');
@@ -83,4 +84,8 @@ assert.equal(event.link_url.includes('5511999999999'), false, 'WhatsApp phone mu
 event = click('tel:+5511888888888');
 assert.equal(event.link_url, 'tel:', 'telephone number must not be logged');
 assert.equal(event.link_url.includes('88888888'), false);
+event = click('https://wa.me/5511910435529', 'Agendar', 'avaliacao_ortodontica');
+assert.equal(event.intent, 'avaliacao_ortodontica');
+event = click('https://wa.me/5511910435529', 'Agendar', 'nome:11999999999');
+assert.equal(event.intent, 'unspecified');
 console.log('Conversion tracking functional tests passed.');
