@@ -1,0 +1,27 @@
+name: Monitorar disponibilidade do site
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '20 12 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  site-health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verificar página inicial
+        run: |
+          curl --fail --location --silent --show-error --retry 2 --max-time 20 --output /tmp/lacari-home.html https://clinicalacari.com.br/
+          grep -qi '<title>' /tmp/lacari-home.html
+      - name: Verificar sitemap
+        run: |
+          curl --fail --location --silent --show-error --retry 2 --max-time 20 --output /tmp/lacari-sitemap.xml https://clinicalacari.com.br/sitemap.xml
+          grep -q '<urlset' /tmp/lacari-sitemap.xml
+      - name: Verificar robots.txt
+        run: |
+          curl --fail --location --silent --show-error --retry 2 --max-time 20 --output /tmp/lacari-robots.txt https://clinicalacari.com.br/robots.txt
+          grep -q 'Sitemap: https://clinicalacari.com.br/sitemap.xml' /tmp/lacari-robots.txt
