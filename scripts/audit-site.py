@@ -101,6 +101,26 @@ def main() -> None:
                     if responsive_target and not responsive_target.is_file():
                         errors.append(f"{rel}: missing responsive image {reference}")
 
+        # Missing local scripts can silently break menus, forms and conversion tracking.
+        for script in re.findall(r"<script\\b[^>]*>", source, re.IGNORECASE):
+            src = re.search(r'\\bsrc="([^"]+)"', script, re.IGNORECASE)
+            if not src:
+                continue
+            target = local_target(page, src.group(1))
+            if target and not target.is_file():
+                errors.append(f"{rel}: missing script {src.group(1)}")
+
+        # Missing local stylesheets may leave the mobile site unusable.
+        for link in re.findall(r"<link\\b[^>]*>", source, re.IGNORECASE):
+            if not re.search(r'\\brel="stylesheet"', link, re.IGNORECASE):
+                continue
+            href = re.search(r'\\bhref="([^"]+)"', link, re.IGNORECASE)
+            if not href:
+                continue
+            target = local_target(page, href.group(1))
+            if target and not target.is_file():
+                errors.append(f"{rel}: missing stylesheet {href.group(1)}")
+
         for href in re.findall(r'href="([^"]+)"', source, re.IGNORECASE):
             target = local_target(page, href)
             if target and not target.exists():
