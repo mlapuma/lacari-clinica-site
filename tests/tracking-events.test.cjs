@@ -54,8 +54,10 @@ assert.equal(window.dataLayer.length, count, 'must not count fake WhatsApp URL')
 event = click('tel:+5511999999999', 'Ligar');
 assert.equal(event.event, 'phone_click');
 assert.equal(event.link_url, 'tel:');
+assert.equal(event.link_text, 'Telefone');
 event = click('https://www.google.com/maps/dir/?api=1');
 assert.equal(event.event, 'route_click');
+assert.equal(event.link_text, 'Rota');
 const afterRoute = window.dataLayer.length;
 click('https://notgoogle.com/maps/dir/');
 assert.equal(window.dataLayer.length, afterRoute, 'must not count fake Maps URL');
