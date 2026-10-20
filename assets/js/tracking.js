@@ -265,7 +265,7 @@ window.LACARI_TRACKING_CONFIG = {
         if (isWhatsApp) {
             // WhatsApp paths may contain a patient's or clinic's phone number.
             // Keep only the verified origin in analytics.
-            window.lacariTrack('whatsapp_click', { ...common, link_url: link.origin, link_text: 'WhatsApp', contact_channel: 'whatsapp', contact_status: 'initiated', intent: link.dataset.intent || 'unspecified' });
+            window.lacariTrack('whatsapp_click', { ...common, link_url: link.origin, link_text: 'WhatsApp', contact_channel: 'whatsapp', contact_status: 'initiated', intent: /^[a-z0-9_]{1,64}$/.test(link.dataset.intent || '') ? link.dataset.intent : 'unspecified' });
         } else if (link.protocol === 'tel:') {
             window.lacariTrack('phone_click', common);
         } else if (/(^|\.)google\.(?:com|com\.br|co\.uk|[a-z]{2})$/i.test(link.hostname) && /maps|dir/.test(link.href)) {
