@@ -58,10 +58,14 @@ assert.equal(event.event, 'route_click');
 const afterRoute = window.dataLayer.length;
 click('https://notgoogle.com/maps/dir/');
 assert.equal(window.dataLayer.length, afterRoute, 'must not count fake Maps URL');
-windowHandlers['lacari:form_submit']({ detail: { formName: 'whatsapp_form', source_section: 'hero', contact_channel: 'whatsapp' } });
+windowHandlers['lacari:form_submit']({ detail: { form_name: 'whatsapp_form', source_section: 'hero', contact_channel: 'whatsapp', patient_name: 'Paciente Teste', phone: '11999999999', message: 'Texto sensivel' } });
 event = window.dataLayer.at(-1);
 assert.equal(event.event, 'form_submit');
 assert.equal(event.source_section, 'hero');
+assert.equal(event.form_name, 'whatsapp_form');
+assert.equal(event.patient_name, undefined);
+assert.equal(event.phone, undefined);
+assert.equal(event.message, undefined);
 assert.equal(event.contact_status, 'initiated');
 // Regression checks: reject lookalike domains and avoid recording contact numbers.
 const beforeLookalikes = window.dataLayer.length;
