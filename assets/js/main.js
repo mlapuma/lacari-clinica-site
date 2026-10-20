@@ -24,6 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // Close the mobile navigation when the visitor clicks outside it.
+        document.addEventListener('click', event => {
+            if (nav.classList.contains('is-open') &&
+                !nav.contains(event.target) &&
+                !navToggle.contains(event.target)) {
+                closeMainNav();
+            }
+        });
+
         nav.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 closeMainNav();
