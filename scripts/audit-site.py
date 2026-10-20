@@ -183,6 +183,17 @@ def main() -> None:
         errors.append("WhatsApp form event is not connected to conversion tracking")
     if "https://wa.me/" not in form_script:
         errors.append("WhatsApp form destination is missing")
+    # Confirm event metadata is preserved without leaking form fields to analytics.
+    if "source_section:" not in tracking and "source_section," not in tracking:
+        errors.append("tracking.js: source section attribution is missing")
+    if "source_section:" not in form_script:
+        errors.append("main.js: form source section attribution is missing")
+    if "contact_channel: 'whatsapp'" not in form_script:
+        errors.append("main.js: WhatsApp contact channel is missing")
+    if "getCampaignAttribution()" not in tracking:
+        errors.append("tracking.js: campaign attribution is missing")
+    if "window.dataLayer.push(payload)" not in tracking:
+        errors.append("tracking.js: events are not pushed to dataLayer")
 
     if errors:
         print("\n".join(errors))
