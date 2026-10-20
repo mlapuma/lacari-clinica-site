@@ -105,6 +105,15 @@ def main() -> None:
 
         # Guard the largest visual against accidental lazy loading.
         if rel.as_posix() == "index.html":
+            preload = re.search(r'<link\b(?=[^>]*\brel="preload")(?=[^>]*\bas="image")[^>]*>', source, re.IGNORECASE | re.DOTALL)
+            if not preload:
+                errors.append("index.html: responsive hero preload not found")
+            else:
+                preload_tag = preload.group(0)
+                if not re.search(r'\bimagesrcset="[^"]+"', preload_tag, re.IGNORECASE):
+                    errors.append("index.html: hero preload missing responsive imagesrcset")
+                if not re.search(r'\bimagesizes="100vw"', preload_tag, re.IGNORECASE):
+                    errors.append("index.html: hero preload missing imagesizes")
             hero = re.search(r'<img\b(?=[^>]*\bclass="[^"]*\bhero-bg\b)[^>]*>', source, re.IGNORECASE | re.DOTALL)
             if not hero:
                 errors.append("index.html: hero image not found")
@@ -149,7 +158,7 @@ def main() -> None:
                 errors.append(f"{rel}: missing script {src.group(1)}")
 
         # Missing local stylesheets may leave the mobile site unusable.
-        for link in re.findall(r"<link\\b[^>]*>", source, re.IGNORECASE):
+        for link in re.findall(r"<link\b[^>]*>", source, re.IGNORECASE):
             if not re.search(r'\\brel="stylesheet"', link, re.IGNORECASE):
                 continue
             href = re.search(r'\\bhref="([^"]+)"', link, re.IGNORECASE)
