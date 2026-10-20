@@ -108,6 +108,9 @@ def main() -> None:
                     errors.append("index.html: hero image must use fetchpriority=high")
 
         for tag in re.findall(r"<img\b[^>]*>", source, re.IGNORECASE):
+            # Even decorative images need an explicit empty alt for accessibility.
+            if not re.search(r'\balt="[^"]*"', tag, re.IGNORECASE):
+                errors.append(f"{rel}: image without alt attribute")
             src_match = re.search(r'\bsrc="([^"]+)"', tag, re.IGNORECASE)
             if not src_match:
                 errors.append(f"{rel}: image without src")
