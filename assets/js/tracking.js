@@ -275,7 +275,7 @@ window.LACARI_TRACKING_CONFIG = {
     window.addEventListener('lacari:form_submit', event => {
         // Only approved, non-personal metadata may reach analytics.
         const detail = event.detail || {};
-        const allowed = ['form_name', 'form_id', 'source_section', 'contact_channel', 'intent'];
+        const allowed = ['formName', 'sourcePath', 'source_section', 'contact_channel', 'interaction_type', 'intent'];
         const safe = Object.fromEntries(allowed
             .filter(key => typeof detail[key] === 'string')
             .map(key => [key, detail[key].slice(0, 80)]));
