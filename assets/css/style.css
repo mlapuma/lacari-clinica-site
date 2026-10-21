@@ -2109,3 +2109,39 @@ textarea:focus {
 .appointment-faq p { margin-top: 0.75rem; }
 .related-reading { padding-left: 1.25rem; }
 .related-reading li { margin: 0.75rem 0; }
+
+
+/* Mobile: keep the dentist visible and prevent horizontal content clipping. */
+@media (max-width: 700px) {
+    .split-grid,
+    .location-grid,
+    .info-panel,
+    .info-panel-body,
+    .feature-list,
+    .feature,
+    .feature > div,
+    .local-list {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .split-grid,
+    .location-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .info-panel img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1408 / 1117;
+        object-fit: contain;
+        object-position: center;
+    }
+
+    .info-panel-body,
+    .location-grid p,
+    .feature p {
+        overflow-wrap: break-word;
+    }
+}
