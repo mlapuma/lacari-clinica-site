@@ -1,0 +1,85 @@
+/* LaCari | experiência acolhedora na página inicial.
+   Preserva as imagens reais, a logo e o rastreamento existentes. */
+body:not(.internal-page) {
+  --bg: #faf8f3;
+  --surface: #fffdf9;
+  --surface-strong: #ffffff;
+  --ink: #302c25;
+  --ink-soft: #574f43;
+  --muted: #665e51;
+  --line: #e9dfcf;
+  --teal: #9a722c;
+  --teal-dark: #76541f;
+  --teal-pale: #f7eddb;
+  --gold: #c89b3c;
+  --gold-dark: #76541f;
+  --rose: #f7efe2;
+  --mint: #f7eddb;
+  --shadow: 0 18px 48px rgba(70, 48, 19, .11);
+  background: var(--bg);
+}
+body:not(.internal-page) .header {
+  background: rgba(255,253,249,.97);
+  border-bottom: 1px solid #e9dfcf;
+}
+body:not(.internal-page) .clinic-title { color: #76541f; }
+body:not(.internal-page) .btn-primary {
+  color: #fff;
+  background: linear-gradient(135deg,#b88b36,#76541f);
+  box-shadow: 0 12px 26px rgba(118,84,31,.23);
+}
+body:not(.internal-page) .btn-primary:hover {
+  box-shadow: 0 16px 30px rgba(118,84,31,.3);
+}
+body:not(.internal-page) .hero {
+  min-height: 640px;
+  background: #2e271d;
+}
+body:not(.internal-page) .hero-overlay {
+  background: linear-gradient(90deg,rgba(34,27,18,.94) 0%,rgba(43,32,19,.82) 40%,rgba(43,32,19,.18) 100%),
+              linear-gradient(0deg,rgba(34,27,18,.23),transparent 55%);
+}
+body:not(.internal-page) .hero-content { padding-top: 94px; padding-bottom: 106px; }
+body:not(.internal-page) .hero h1 {
+  max-width: 760px;
+  font-size: clamp(2.25rem,4.6vw,4.45rem);
+  line-height: 1.12;
+  letter-spacing: -.025em;
+}
+body:not(.internal-page) .hero p { max-width: 620px; line-height: 1.75; }
+body:not(.internal-page) .hero .eyebrow { color: #f1d59d; }
+body:not(.internal-page) .trust-row li {
+  background: rgba(255,253,249,.13);
+  border-color: rgba(255,255,255,.24);
+  border-radius: 14px;
+}
+body:not(.internal-page) .pathway-card,
+body:not(.internal-page) .first-visit-grid article,
+body:not(.internal-page) .appointment-inner {
+  border-radius: 20px;
+  box-shadow: 0 16px 42px rgba(70,48,19,.075);
+}
+body:not(.internal-page) .pathway-card {
+  transition: transform .22s ease,box-shadow .22s ease;
+}
+body:not(.internal-page) .pathway-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 44px rgba(70,48,19,.12);
+}
+body:not(.internal-page) .response-expectation {
+  background: #76541f;
+  border-radius: 18px;
+}
+body:not(.internal-page) :focus-visible { outline-color: #9a722c; }
+@media(max-width:700px) {
+  body:not(.internal-page) .hero { min-height: 0; }
+  body:not(.internal-page) .hero-overlay {
+    background: linear-gradient(0deg,rgba(34,27,18,.96) 0%,rgba(34,27,18,.8) 56%,rgba(34,27,18,.35) 100%);
+  }
+  body:not(.internal-page) .hero-content { padding-top: 220px; padding-bottom: 62px; }
+  body:not(.internal-page) .hero h1 { font-size: clamp(2rem,8vw,3rem); }
+}
+@media(prefers-reduced-motion:reduce) {
+  body:not(.internal-page) .pathway-card { transition: none; }
+  body:not(.internal-page) .pathway-card:hover { transform: none; }
+}
